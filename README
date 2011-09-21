@@ -1,0 +1,23 @@
+#!/usr/bin/env perl
+
+use Dancer;
+use Dancer::Plugin::Mongoose;
+#use Dancer::Plugin::Mongoose qw(schema); # explicit import if you like
+
+get '/profile/:id' => sub {
+    
+    my $user = schema->users->find(params->{id});
+    
+    # or explicitly ask for a schema by name:
+    $user = schema('foo')->users->find(params->{id});
+    template user_profile => { user => $user };
+};
+
+dance;
+
+# Dancer Configuration File
+
+plugins:
+  Mongoose:
+    foo:
+      class: "Foo::Bar"
