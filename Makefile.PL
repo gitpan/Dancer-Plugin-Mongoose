@@ -23,7 +23,7 @@ my %WriteMakefileArgs = (
     'Dancer' => '0',
     'Mongoose' => '0'
   },
-  'VERSION' => '0.00001',
+  'VERSION' => '0.00002',
   'test' => {
     'TESTS' => 't/*.t'
   }

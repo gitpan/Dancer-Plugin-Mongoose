@@ -15,4 +15,4 @@ name: Dancer-Plugin-Mongoose
 requires:
   Dancer: 0
   Mongoose: 0
-version: 0.00001
+version: 0.00002

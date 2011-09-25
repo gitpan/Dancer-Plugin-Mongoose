@@ -5,6 +5,7 @@ Makefile.PL
 README
 dist.ini
 lib/Dancer/Plugin/Mongoose.pm
+t/00-simple_use.t
 t/01-single-schema.t
 t/lib/Foo.pm
 t/lib/Foo/User.pm

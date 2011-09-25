@@ -2,7 +2,7 @@
 
 package Dancer::Plugin::Mongoose;
 BEGIN {
-  $Dancer::Plugin::Mongoose::VERSION = '0.00001';
+  $Dancer::Plugin::Mongoose::VERSION = '0.00002';
 }
 
 use strict;
@@ -39,10 +39,12 @@ register schema => sub {
         
         $schemas->{$name} = $class
     }
-
-    # explicitly set host
-    my $host = $options->{host};
-    Mongoose->_args->{host} = $host if $host;
+    
+    # explicitly set db with options
+    Mongoose->db(
+        ref $options->{database} ?
+            %{$options->{database}} : $options->{database}
+    )   if defined $options->{database};
 
     return $schemas->{$name};
 };
@@ -60,7 +62,7 @@ Dancer::Plugin::Mongoose - Mongoose interface for Dancer applications
 
 =head1 VERSION
 
-version 0.00001
+version 0.00002
 
 =head1 SYNOPSIS
 
@@ -102,12 +104,18 @@ For example:
       Mongoose:
         foo:
           class: Foo
-          "mongodb://localhost:27017"
+          database:
+            db_name: "one"
+            host: "mongodb://localhost:27017"
         bar:
           class: Foo::Bar
+          database: "two"
         baz:
           class: Foo::Baz
-          host: "mongodb://elsewhere:27017"
+          database:
+            db_name: "three"
+            host: "mongodb://elsewhere:27017"
+            query_timeout: 60
 
 Each schema configuration *must* have a class option. If the host option is
 omitted it is assumed that it is hard-coded in the class or that localhost
